@@ -23,7 +23,8 @@ class Welcome extends CI_Controller {
 		echo json_encode($result);
 	
 		}
-	//function to the customer booking 
+	//function to the customer bookings get the customer bookings
+	 
 
 	public function historyBooking($userid){
 		$result=$this->ItransModel->customerBooking($userid);
@@ -40,6 +41,7 @@ class Welcome extends CI_Controller {
 
 	public function user($userid){
 		$result=$this->ItransModel->getCustomer($userid);
+		
 		echo json_encode($result);
 	}
 
@@ -52,10 +54,12 @@ class Welcome extends CI_Controller {
 			$id;
 			foreach($r as $row){
 				$id=$row['id'];
+				
 			}
 
 			
-			$this->user($id);
+			echo $id;
+			
 		}else{
 			echo"no";
 		}
@@ -68,7 +72,8 @@ class Welcome extends CI_Controller {
 
 	//function to create the user 
 	public function createUser($phone,$username,$password,$email){
-		$this->ItransModel->insertUser($username,$email,$phone,$password);
+		$this->ItransModel->insertUser($username,$password,$email,$phone);
+		
 	}
 	 
 

@@ -9,6 +9,8 @@ class ItransModel extends CI_Model{
 	
 	//function to get the bus default
 	public function getBusDefault(){
+		$date=date('Y-m-d');
+		
 		///$query = $this->db->get_where('allocation', array('stationA' =>$origin,'stationB' =>$destination,'StartA' =>$time,));
 		$this->db->select("*");
 		$this->db->from("allocation");
@@ -16,7 +18,7 @@ class ItransModel extends CI_Model{
 		$this->db->join('company','bus.companyid=company.companyid');
 		$this->db->join('booking','booking.allocationid=allocation.id');
 		$this->db->order_by("booking.seatsremaining", "asc");
-		// $this->db->where( array('stationA' =>$origin,'stationB' =>$destination,'StartA' =>$time));
+		$this->db->where( array('booking.date' =>$date));
 		$query=$this->db->get();
 		$query=$query->result_array();
 		return $query;
@@ -31,6 +33,7 @@ class ItransModel extends CI_Model{
 		$this->db->select("*");
 		$this->db->from("allocation");
 		$this->db->join('bus','allocation.busid=bus.busid');
+		$this->db->join('booking','booking.allocationid=allocation.id');
 		$this->db->join('company','bus.companyid=company.companyid');
 		$this->db->where( array('stationA' =>$origin,'stationB' =>$destination,'StartA' =>$time));
 		$query=$this->db->get();
@@ -79,8 +82,11 @@ class ItransModel extends CI_Model{
 	//function to get the details of the customer 
 
 	public function getCustomer($userid){
-
-		$query=$this->db->get_where('customer',array('customerid'=>$userid));
+		$this->db->select("*");
+		$this->db->from("customerlogin");
+	   // $this->db->join("customer","customer.customerid=customerlogin.id");
+		$query=$this->db->where(array('id'=>$userid));
+		$query=$this->db->get();
 		$query=$query->result_array();
 		return $query;
 	}
@@ -92,7 +98,7 @@ public function getUser($phone,$password){
 	//$pwd=md5($this->input->post('password'));
 	 $query = $this->db->get_where('customerlogin',array('phone'=>$phone,'password'=>$password));
      $query=$query->result_array();
-	return $query;
+	 return $query;
  }
 
  //function to create a customer
