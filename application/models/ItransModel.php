@@ -84,7 +84,7 @@ class ItransModel extends CI_Model{
 	public function getCustomer($userid){
 		$this->db->select("*");
 		$this->db->from("customerlogin");
-	   // $this->db->join("customer","customer.customerid=customerlogin.id");
+	    $this->db->join("customer","customerlogin.id=customer.customerid");
 		$query=$this->db->where(array('id'=>$userid));
 		$query=$this->db->get();
 		$query=$query->result_array();
@@ -126,7 +126,7 @@ public function getUser($phone,$password){
 	$result=$this->db->get();
 	$query=$result->result_array();
 	return $query;
-
+	
  }
  //return customer balance
  public function customerBalance($customerid){
@@ -206,24 +206,27 @@ public function updateseat($allocationid,$nseat,$type){
 
 
 
+/************************************************** */
 
-
-
-
+/************************************************** */
+/************************************************** */
 /************************************************** */
 /*******************Transaction section************ */
 /**************************************************** */
+/************************************************** */
 
 //function to create the booking 
-private function createTicket($allocationid,$customerid,$amount,$date){
+private function createTicket($allocationid,$customerid,$amount,$date,$nseat){
 	$data=array(
 				"allocationid"=>$allocationid,
 				"customerid"=>$customerid,
 				'amount'=>$amount,
-				'date'=>$date
+				'date'=>$date,
+				'seats'=>$nseat
 	);
 
 	$this->db->insert("transaction",$data);
+	echo" ticket inserted correctly";
 }
 
 // function to delete a ticket
@@ -246,17 +249,19 @@ private function deleteTicket($tickecode){
 				//update the user balance
 
 				$user=$this->getCustomer($userid);
-					$balance;
+				print_r($user);
+					$balance=0;
 				foreach($user as $customer){
+					
 					$balance=$customer['wallet'];
 				}
 				//check the user balance
 				if($balance>=$amount){
 				//do subtraction on the balance
-				echo $balance;
-				echo"<br/>";
+				
+			
 				$balance=$balance-$amount;
-				echo $balance;
+			
 				$this->db->set('wallet',$balance);
 				$this->db->where(array("customerid"=>$userid));
 				$this->db->update('customer');
@@ -264,6 +269,7 @@ private function deleteTicket($tickecode){
 				$numberOfSeats;
 				foreach($result as $row){
 					$numberOfSeats=$row['seatsremaining'];
+
 
 				}
 				$numberOfSeats=$numberOfSeats-$nseat;
@@ -274,7 +280,7 @@ private function deleteTicket($tickecode){
 				$this->db->update('booking');
 				
 				//create a ticket
-				$this->createTicket($allocationid,$userid,$amount,$date);
+				$this->createTicket($allocationid,$userid,$amount,$date,$nseat);
 			}else{
 				//out that the balance is not sufficient
 				echo "Check you balance";
@@ -297,8 +303,8 @@ private function deleteTicket($tickecode){
 				'allocationid'=>$allocationid,
 				'seatsremaining'=>$numberOfSeats
 			);
-
-			$this->db->insert('booking',$data );
+			//comment out the below line of code  was causing code several insertion
+			//$this->db->insert('booking',$data );
 			//call the method again
 			$this->checkBusallocation($allocationid,$userid,$amount,$nseat,$date);
 			
