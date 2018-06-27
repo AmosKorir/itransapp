@@ -11,7 +11,7 @@ class Welcome extends CI_Controller {
 
 	//function to return the current busses
 
-	// function to get the buse default
+	// function to get the buses default
 	public function getBusDefault(){
 		$result=$this->ItransModel->getBusDefault();
 		echo json_encode($result);	
