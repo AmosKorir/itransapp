@@ -33,7 +33,7 @@ class ItransModel extends CI_Model{
 		$this->db->select("*");
 		$this->db->from("allocation");
 		$this->db->join('bus','allocation.busid=bus.busid');
-		$this->db->join('booking','booking.allocationid=allocation.id');
+		// $this->db->join('booking','booking.allocationid=allocation.id');
 		$this->db->join('company','bus.companyid=company.companyid');
 		$this->db->where( array('stationA' =>$origin,'stationB' =>$destination,'StartA' =>$time));
 		$query=$this->db->get();
@@ -101,6 +101,14 @@ public function getUser($phone,$password){
 	 return $query;
  }
 
+ //check if the user exist in the database
+ private function checkuser($phone){
+	$query = $this->db->get_where('customerlogin',array('phone'=>$phone));
+	 $query=$query->result_array();
+	 return sizeof($query);
+	 
+ }
+
  //function to create a customer
 
  public function insertUser($username,$password,$email,$phone){
@@ -113,7 +121,14 @@ public function getUser($phone,$password){
 	);
 
 	 $this->db->insert('customerlogin',$data );
+	 $count=$this->checkuser($phone);
+	 if($count===0){
+	 echo "successfull";
+	 }else{
+		echo "unsuccessfull"; 
+	 }
  }
+
 
  //function to get the user booking
 
@@ -243,8 +258,28 @@ private function deleteTicket($tickecode){
 	$result= $this->db->get_where('booking',array("allocationid"=>$allocationid,"date"=>$date));
 	$result=$result->result_array();
 	//get the bus details
+
+	//if the the bus is not there insert
+	if(sizeof($result)===0){
+		//get the bus default number of seats
+		$defaultSeats=0;
+		$innerresult=$this->getBus($allocationid);
+		foreach($result as $row){
+			$defaultSeats=$row['seat'];
+		}
+
 		
-		if(sizeof($result)>0){
+		$data=array(
+			'date'=>date("Y/m/d"),
+			'allocationid'=>$allocationid,
+			'seatsremaining'=>$defaultSeats
+		);
+		
+		$this->db->insert('booking',$data );
+
+	  }
+		
+		
 				
 				//update the user balance
 
@@ -266,7 +301,7 @@ private function deleteTicket($tickecode){
 				$this->db->where(array("customerid"=>$userid));
 				$this->db->update('customer');
 
-				$numberOfSeats;
+				$numberOfSeats=0;
 				foreach($result as $row){
 					$numberOfSeats=$row['seatsremaining'];
 
@@ -289,26 +324,7 @@ private function deleteTicket($tickecode){
 
 
 
-				}else{
-			
-			$numberOfSeats;
-			$result=$this->getBus($allocationid);
-			foreach($result as $row){
-				$numberOfSeats=$row['seat'];
-			}
-
-			
-			$data=array(
-				'date'=>date("Y/m/d"),
-				'allocationid'=>$allocationid,
-				'seatsremaining'=>$numberOfSeats
-			);
-			//comment out the below line of code  was causing code several insertion
-			//$this->db->insert('booking',$data );
-			//call the method again
-			$this->checkBusallocation($allocationid,$userid,$amount,$nseat,$date);
-			
-		}
+		
 
 
 		// print_r($result);

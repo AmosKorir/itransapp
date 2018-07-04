@@ -34,7 +34,8 @@ class Welcome extends CI_Controller {
 	// function to get customer current balance
 
 	public function currentBalance($userid){
-		echo " your current balance 1200";
+	$balance=$this->ItransModel->customerBalance($userid);
+	echo $balance;
 	}
 
 	//function get the customer
