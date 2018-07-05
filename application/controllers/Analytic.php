@@ -11,7 +11,7 @@ class Analytic extends CI_Controller{
        $number=$this->AnalyticModel->noBuses("2");
         $dayOfWeek=date("w");
         $today=date("Y-m-d");
-       
+        echo $today;
 
         //get the company id
         $companyid=2;
@@ -20,6 +20,7 @@ class Analytic extends CI_Controller{
 
     // for one company 
        $dateCash=$this->AnalyticModel->dateAmount($today,$companyid);
+       echo $dateCash;
        $monthCash=$this->AnalyticModel->currentMonth($companyid);
         
     //other commpanies

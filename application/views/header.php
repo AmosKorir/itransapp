@@ -39,7 +39,7 @@
 		padding-top:80px;
 	}
 	.text2{
-		color:black;
+		color:white;
 	}
 	a {
 		color: #003399;
@@ -47,12 +47,41 @@
 		font-weight: normal;
 	}
 	.centertext{
-		margin:30px;
+		margin:5px;
 	}
 	.titletext{
-		color:green;
+		color:white;
+		font-size:40px;
+	
+	text-align:center;
 	}
+.month{
+		
+		background-color:  #fc9c1e !important;
+	}
+.today{
+    background-color:  
+	#23aa31;
+    
+}.greentext{
+	color:  
+	#23aa31;
+}
+.center{
+	color:white;
+	
+	text-align:center;
+}
 
+.lifetime{
+    background-color:  #d82424;
+      
+    
+}
+a{
+	color:white;
+	font-size:28px;
+}
 	h1 {
 		color: #444;
 		background-color: transparent;

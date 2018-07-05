@@ -17,21 +17,21 @@
 
 <div class="row">
     <div class="col-md-4">
-        <div class="well"><h3 class="text2">Today's earning</h3>
-        <div class="center"><h2 class="titletext"><?php echo $yourearning;?></h2></div>
+        <div class="well today"><h3 class="text2">Today's earning</h3>
+        <div class="center"><h2 class="titletext"><?php echo $yourearning;?>/=</h2></div>
         
         </div>
         
     </div>
     <div class="col-md-4">
-    <div class="well"><h3 class="text2">This month's earning</h3>
-    <div class="center"><h2 class="titletext"><?php echo $monthearning;?></h2></div>
+    <div class=" well month"><h3 class="text2">This month's earning</h3>
+    <div class="center"><h2 class="titletext"><?php echo $monthearning;?>/=</h2></div>
     </div>
     
     </div>
     <div class="col-md-4">
-    <div class="well"><h3 class="text2">Total Lifetime earning</h3>
-    <div class="center"><h2 class="titletext"><?php echo $lifeEarning;?></h2></div>
+    <div class="well lifetime"><h3 class="text2">Total Lifetime earning</h3>
+    <div class="center"><h2 class="titletext"><?php echo $lifeEarning;?>/=</h2></div>
     </div>
     </div>
 </div>
@@ -48,7 +48,7 @@
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'pie',
+    type: 'doughnut',
 
     // The data for our dataset
     data: {
@@ -60,7 +60,10 @@ var chart = new Chart(ctx, {
             data: [<?php echo $yourearning;?>,<?php echo $othertoday;?>],
             //background color
             backgroundColor:[
-                "#9b227b", "#5cf1f9",
+                "#fc9c1e", "#5cf1f9",
+            ],
+            borderColor:[
+                "#fc9c1e", "#5cf1f9",  
             ]
 
         }]
@@ -85,7 +88,7 @@ var chart = new Chart(ctx, {
 var ctx = document.getElementById('monthgraph').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'pie',
+    type: 'doughnut',
 
     // The data for our dataset
     data: {
@@ -97,7 +100,10 @@ var chart = new Chart(ctx, {
             data: [<?php echo $monthearning;?>,<?php echo $othermonthearning;?>],
             //background color
             backgroundColor:[
-                "#9b227b", "#5cf1f9",
+                "#fc9c1e", "#5cf1f9",
+            ],
+            borderColor:[
+                "#fc9c1e", "#5cf1f9",  
             ]
 
         }]
@@ -119,7 +125,7 @@ var chart = new Chart(ctx, {
 <!-- section for the day of the week graph-->
 
     <div class="row">
-        <h2 class="titletext">Day Comparison<h2>
+        <h2 class="greentext">Day Comparison<h2>
         <div class="col-md-4">
         <!-- description goes here -->
         <div class="centertext">
@@ -164,21 +170,28 @@ var chart = new Chart(ctx, {
                 ],
             //background color
             backgroundColor:[
+                "#ff8f28",
+                "#5cf1f9",
+                "#089136",
                 "#5cf1f9",
                 "#5cf1f9",
-                "#5cf1f9",
-                "#5cf1f9",
-                "#5cf1f9",
-                "#5cf1f9",
+                "#28ff70",
                 "#5cf1f9",
             ]
 
-        }]
+        }],
+        
     },
     
 
     // Configuration options go here
-    options: {}
+    options: {
+        legend:{
+            labels:{
+               
+            }
+        }
+    }
 });
 </script>
 

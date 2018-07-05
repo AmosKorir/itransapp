@@ -32,19 +32,21 @@ public function companyCash($companyid){
 //get the cash of a particular day of one company
 public function dateAmount($date,$companyid){
     $this->db->select("transaction.amount");
-    $this->db->from("bus");
-    $this->db->join('allocation','allocation.busid=bus.busid');
-    $this->db->join('transaction','transaction.allocationid=allocation.id');
+    $this->db->from("transaction");
+    $this->db->join('allocation','allocation.busid=transaction.allocationid');
+    $this->db->join('bus','bus.busid=allocation.busid');   
     $this->db->where(array('transaction.date'=>$date,'bus.companyid'=>$companyid));
     $result=$this->db->get();
-    $amount=0;
-    $result=$result->result_array();
+    $amount=0;   
+    $result=$result->result_array();  
+  
     foreach ($result as $row){
+      
         $amount+=$row['amount'];
     }
-    return $amount;
-
+    return $amount/2;
 }
+
 //get the cash of other companies at other days
 public function otherDateAmount($date){
     $this->db->select("transaction.amount");
