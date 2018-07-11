@@ -35,8 +35,8 @@
 		background-color:#15d6d6 !important;
 	}
 	.pos{
-		margin:40px;
-		padding-top:80px;
+		/* margin:40px;
+		padding-top:80px; */
 	}
 	.leftdiv{
 		padding-left:50px !important;
@@ -95,7 +95,15 @@
 .themcolorleft{
 	height:100% !important;
 	padding:20px !important;
-	background-color:red;
+    background-color:red;
+}
+.right{
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    right:0px;
+    height:100% !important;
+    background-color:#95d1d6;
 }
 
 .lifetime{
@@ -105,7 +113,7 @@
 }
 a{
 	color:white;
-	font-size:20px;
+	font-size:28px;
 }
 	h1 {
 		color: #444;
@@ -115,9 +123,6 @@ a{
 		font-weight: normal;
 		margin: 0 0 14px 0;
 		padding: 14px 15px 10px 15px;
-	}
-	.welll{
-		padding:10px;
 	}
 
 	code {
@@ -163,24 +168,6 @@ a{
     <body>
 	
        
-    <nav class="navbar-fixed-top custombar ">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Uwezo</a>
-    </div>
-    <ul class="nav navbar-nav">
-	  <li class="active"><a href="<?= base_url('Welcome/');?>">Home</a></li>
-	  <li class="active"><a href="<?= base_url('Welcome/membership');?>">Membership</a></li>
-	  <li class="active"><a href="<?= base_url('Welcome/repayloan');?>">Loan Repay</a></li>
-	  <li class="active"><a href="<?= base_url('Welcome/contributionpage');?>">Contribution</a></li>
-      
-    </ul>
-	<ul class="nav navbar-nav navbar-right">
-	
-	<li></li>
-	<li class= "active"><a href="<?= base_url('Welcome/logout');?>">logout</a></li>
-	</ul>
-  </div>
-</nav>
+  
 <div class="pos">
 

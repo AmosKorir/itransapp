@@ -1,5 +1,87 @@
 <?php
 class Analytic extends CI_Controller{
+
+
+
+
+//function to add the contributtion
+public function addcontribution(){
+    
+
+}
+
+//function to award loan
+public function awardloan($nationalid,$amount,$paydate){
+    //check if the user exist in the loan list;
+    $groupid=$this->session->user_data('id');
+    $this->db-select('nationalid');
+    $this->db->from('members');
+    $this->db->where('nationalid',$nationid);
+    $result=$this->get();
+    $result=$result->result_array();
+    $count=sizeof($result);
+    if($count===0){
+        $data=array(
+            'nationalid'=>$nationalid,
+            'duedate'=>$paydate,
+            'groupid'=>$groupid,
+            'amount'=>$amount
+        );
+        $this->db->insert('loan',$data);
+    }
+
+    //to continue with this function 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public $mondayEarning=0;
     public $tuesdayEarning=0;
     public $wednesdayEarning=0;
@@ -15,6 +97,61 @@ class Analytic extends CI_Controller{
 
         //get the company id
         $companyid=2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
